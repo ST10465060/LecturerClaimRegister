@@ -1,0 +1,78 @@
+﻿@model LecturerClaimRegister.Models.Claim
+
+@{
+    ViewData["Title"] = "New Claim";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-7">
+
+        <h1 class="mb-1">New Claim</h1>
+        <p class="text-muted">Capture the details below. All fields are required.</p>
+
+        <div class="card shadow-sm">
+            <div class="card-body">
+
+                <form asp-action="Create" method="post">
+
+                    @* Shows any model-level errors at the top of the form. *@
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="LecturerName" class="form-label"></label>
+                        <input asp-for="LecturerName" class="form-control" placeholder="e.g. Dr Naledi Mokoena" />
+                        <span asp-validation-for="LecturerName" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="ModuleCode" class="form-label"></label>
+                        <input asp-for="ModuleCode" class="form-control" placeholder="e.g. PROG6212" />
+                        <span asp-validation-for="ModuleCode" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="ClaimMonth" class="form-label"></label>
+                        <input asp-for="ClaimMonth" class="form-control" placeholder="e.g. September 2026" />
+                        <span asp-validation-for="ClaimMonth" class="text-danger small"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="HoursWorked" class="form-label"></label>
+                            <input asp-for="HoursWorked" class="form-control" type="number" step="0.5" min="1" max="160" />
+                            <span asp-validation-for="HoursWorked" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="HourlyRate" class="form-label"></label>
+                            <div class="input-group">
+                                <span class="input-group-text">R</span>
+                                <input asp-for="HourlyRate" class="form-control" type="number" step="0.01" min="0.01" />
+                            </div>
+                            <span asp-validation-for="HourlyRate" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    @* Status is set by the controller, so it is shown read-only for context. *@
+                    <div class="mb-4">
+                        <label class="form-label">Status</label>
+                        <input class="form-control" value="Draft" disabled />
+                        <div class="form-text">New claims are always saved as Draft.</div>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">Save Claim</button>
+                        <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @* Enables client-side validation using the rules already on the model. *@
+    <partial name="_ValidationScriptsPartial" />
+}
